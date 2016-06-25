@@ -13,6 +13,7 @@ import rx.functions.Func1;
  */
 public class ContributorsDTOtoVO implements Func1<List<ContributorDTO> , List<ContributorVO>> {
     @Override
+    
     public List<ContributorVO> call(List<ContributorDTO> contributorDTOs) {
         return Observable.from(contributorDTOs).map(contributorDTO -> new ContributorVO(contributorDTO.getLogin())).toList().toBlocking().first();
     }
