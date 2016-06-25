@@ -1,5 +1,7 @@
 package com.garrytrue.cleanarhitecturegitapi.api;
 
+import com.garrytrue.cleanarhitecturegitapi.model.data.BranchDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.ContributorDTO;
 import com.garrytrue.cleanarhitecturegitapi.model.data.RepositoryDTO;
 
 import java.util.List;
@@ -14,4 +16,11 @@ import rx.Observable;
 public interface ApiInterface {
     @GET("users/{username}/repos")
     Observable<List<RepositoryDTO>> getRepositories(@Path("username") String userName);
+
+    @GET("/repos/{owner}/{repo}/contributors")
+    Observable<List<ContributorDTO>> getContributors(@Path("owner") String owner, @Path("repo") String repo);
+
+    @GET("/repos/{owner}/{repo}/branches")
+    Observable<List<BranchDTO>> getBranches(@Path("owner") String owner, @Path("repo") String repo);
+
 }
