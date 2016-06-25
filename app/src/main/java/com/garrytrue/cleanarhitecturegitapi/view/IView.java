@@ -1,6 +1,6 @@
 package com.garrytrue.cleanarhitecturegitapi.view;
 
-import com.garrytrue.cleanarhitecturegitapi.model.data.RepositoryDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.dto.RepositoryDTO;
 
 import java.util.List;
 

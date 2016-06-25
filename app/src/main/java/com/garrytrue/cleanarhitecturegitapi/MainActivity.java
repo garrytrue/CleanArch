@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.garrytrue.cleanarhitecturegitapi.adapters.RepoListAdapter;
-import com.garrytrue.cleanarhitecturegitapi.model.data.RepositoryDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.dto.RepositoryDTO;
 import com.garrytrue.cleanarhitecturegitapi.presenter.RepoListPresenter;
 import com.garrytrue.cleanarhitecturegitapi.view.IView;
 

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.garrytrue.cleanarhitecturegitapi.model.data.RepositoryDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.dto.RepositoryDTO;
 
 import java.util.List;
 

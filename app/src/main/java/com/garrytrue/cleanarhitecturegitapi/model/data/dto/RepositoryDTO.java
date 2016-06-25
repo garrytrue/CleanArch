@@ -1,4 +1,4 @@
-package com.garrytrue.cleanarhitecturegitapi.model.data;
+package com.garrytrue.cleanarhitecturegitapi.model.data.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

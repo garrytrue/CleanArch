@@ -2,9 +2,9 @@ package com.garrytrue.cleanarhitecturegitapi.model;
 
 import com.garrytrue.cleanarhitecturegitapi.api.ApiInterface;
 import com.garrytrue.cleanarhitecturegitapi.api.ApiModule;
-import com.garrytrue.cleanarhitecturegitapi.model.data.BranchDTO;
-import com.garrytrue.cleanarhitecturegitapi.model.data.ContributorDTO;
-import com.garrytrue.cleanarhitecturegitapi.model.data.RepositoryDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.dto.BranchDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.dto.ContributorDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.dto.RepositoryDTO;
 
 import java.util.List;
 

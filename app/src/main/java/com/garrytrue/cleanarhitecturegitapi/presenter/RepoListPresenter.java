@@ -13,7 +13,7 @@ import rx.subscriptions.Subscriptions;
  * Created by garrytrue on 25.06.16.
  */
 public class RepoListPresenter implements Presenter {
-    private static final String TAG = "RepoListPresenter";
+    private static final String TAG = RepoListPresenter.class.getSimpleName();
     private final Model model = new ModelImpl();
     private Subscription subscription = Subscriptions.empty();
     private IView view;
