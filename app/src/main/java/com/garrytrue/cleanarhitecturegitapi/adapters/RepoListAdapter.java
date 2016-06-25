@@ -6,15 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.garrytrue.cleanarhitecturegitapi.model.data.Repo;
+import com.garrytrue.cleanarhitecturegitapi.model.data.RepositoryDTO;
 
 import java.util.List;
 
 /**
  * Created by garrytrue on 25.06.16.
  */
-public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> implements RecyclerAdapter<Repo> {
-    private List<Repo> repos;
+public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> implements RecyclerAdapter<RepositoryDTO> {
+    private List<RepositoryDTO> repos;
 
     @Override
     public RepoListAdapter.RepoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,7 +36,7 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
     }
 
     @Override
-    public void setData(List<Repo> data) {
+    public void setData(List<RepositoryDTO> data) {
         repos = data;
         notifyDataSetChanged();
     }

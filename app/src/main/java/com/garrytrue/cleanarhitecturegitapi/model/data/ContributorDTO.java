@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by garrytrue on 25.06.16.
  */
-public class Owner {
+public class ContributorDTO {
     @SerializedName("login")
     @Expose
     private String login;
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("avatar_url")
     @Expose
     private String avatarUrl;
@@ -58,6 +58,9 @@ public class Owner {
     @SerializedName("site_admin")
     @Expose
     private Boolean siteAdmin;
+    @SerializedName("contributions")
+    @Expose
+    private Integer contributions;
 
     /**
      * @return The login
@@ -76,14 +79,14 @@ public class Owner {
     /**
      * @return The id
      */
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id The id
      */
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -297,4 +300,17 @@ public class Owner {
         this.siteAdmin = siteAdmin;
     }
 
+    /**
+     * @return The contributions
+     */
+    public Integer getContributions() {
+        return contributions;
+    }
+
+    /**
+     * @param contributions The contributions
+     */
+    public void setContributions(Integer contributions) {
+        this.contributions = contributions;
+    }
 }

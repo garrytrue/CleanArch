@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.garrytrue.cleanarhitecturegitapi.adapters.RepoListAdapter;
-import com.garrytrue.cleanarhitecturegitapi.model.data.Repo;
+import com.garrytrue.cleanarhitecturegitapi.model.data.RepositoryDTO;
 import com.garrytrue.cleanarhitecturegitapi.presenter.RepoListPresenter;
 import com.garrytrue.cleanarhitecturegitapi.view.IView;
 
@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements IView {
 
 
     @Override
-    public void showList(List<Repo> repos) {
-        mRepoListAdapter.setData(repos);
+    public void showList(List<RepositoryDTO> repositoryDTOs) {
+        mRepoListAdapter.setData(repositoryDTOs);
     }
 
     @Override

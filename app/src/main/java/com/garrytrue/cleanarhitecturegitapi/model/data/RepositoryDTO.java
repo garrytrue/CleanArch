@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by garrytrue on 24.06.16.
  */
-public class Repo {
+public class RepositoryDTO {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -18,7 +18,7 @@ public class Repo {
     private String fullName;
     @SerializedName("owner")
     @Expose
-    private Owner owner;
+    private OwnerDTO ownerDTO;
     @SerializedName("private")
     @Expose
     private Boolean _private;
@@ -255,17 +255,17 @@ public class Repo {
     }
 
     /**
-     * @return The owner
+     * @return The ownerDTO
      */
-    public Owner getOwner() {
-        return owner;
+    public OwnerDTO getOwner() {
+        return ownerDTO;
     }
 
     /**
-     * @param owner The owner
+     * @param ownerDTO The ownerDTO
      */
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public void setOwner(OwnerDTO ownerDTO) {
+        this.ownerDTO = ownerDTO;
     }
 
     /**

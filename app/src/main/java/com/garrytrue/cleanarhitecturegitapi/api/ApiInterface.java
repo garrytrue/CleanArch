@@ -1,6 +1,6 @@
 package com.garrytrue.cleanarhitecturegitapi.api;
 
-import com.garrytrue.cleanarhitecturegitapi.model.data.Repo;
+import com.garrytrue.cleanarhitecturegitapi.model.data.RepositoryDTO;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ import rx.Observable;
  */
 public interface ApiInterface {
     @GET("users/{username}/repos")
-    Observable<List<Repo>> getRepositories(@Path("username") String userName);
+    Observable<List<RepositoryDTO>> getRepositories(@Path("username") String userName);
 }
