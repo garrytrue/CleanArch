@@ -1,6 +1,6 @@
 package com.garrytrue.cleanarhitecturegitapi.api;
 
-import com.garrytrue.cleanarhitecturegitapi.model.Repo;
+import com.garrytrue.cleanarhitecturegitapi.model.data.Repo;
 
 import java.util.List;
 

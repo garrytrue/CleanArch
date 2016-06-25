@@ -1,5 +1,7 @@
 package com.garrytrue.cleanarhitecturegitapi.model;
 
+import com.garrytrue.cleanarhitecturegitapi.model.data.Repo;
+
 import java.util.List;
 
 import rx.Observable;
