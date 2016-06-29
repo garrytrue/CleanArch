@@ -7,14 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.garrytrue.cleanarhitecturegitapi.model.data.dto.RepositoryDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.vo.RepositoryVO;
 
 import java.util.List;
 
 /**
  * Created by garrytrue on 25.06.16.
  */
-public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> implements RecyclerAdapter<RepositoryDTO> {
-    private List<RepositoryDTO> repos;
+public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> implements RecyclerAdapter<RepositoryVO> {
+    private List<RepositoryVO> repos;
 
     @Override
     public RepoListAdapter.RepoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -26,8 +27,8 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
 
     @Override
     public void onBindViewHolder(RepoListAdapter.RepoViewHolder holder, int position) {
-        holder.setTitle(repos.get(position).getOwner().getLogin());
-        holder.setSubtitle(repos.get(position).getName());
+        holder.setTitle(repos.get(position).getOwnerName());
+        holder.setSubtitle(repos.get(position).getRepoName());
     }
 
     @Override
@@ -36,7 +37,7 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
     }
 
     @Override
-    public void setData(List<RepositoryDTO> data) {
+    public void setData(List<RepositoryVO> data) {
         repos = data;
         notifyDataSetChanged();
     }

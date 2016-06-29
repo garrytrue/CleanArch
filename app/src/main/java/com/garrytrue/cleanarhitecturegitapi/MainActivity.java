@@ -9,13 +9,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.garrytrue.cleanarhitecturegitapi.adapters.RepoListAdapter;
-import com.garrytrue.cleanarhitecturegitapi.model.data.dto.RepositoryDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.vo.RepositoryVO;
 import com.garrytrue.cleanarhitecturegitapi.presenter.RepoListPresenter;
+import com.garrytrue.cleanarhitecturegitapi.view.IRepoView;
 import com.garrytrue.cleanarhitecturegitapi.view.IView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements IView {
+public class MainActivity extends AppCompatActivity implements IRepoView {
     private EditText mUserName;
     private ImageButton mSearch;
     private RecyclerView mRecyclerView;
@@ -28,6 +29,13 @@ public class MainActivity extends AppCompatActivity implements IView {
         setContentView(R.layout.activity_main);
         initViews();
         mPresenter = new RepoListPresenter(this);
+        mPresenter.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mPresenter.onSavedInstanceState(outState);
     }
 
     private void initViews() {
@@ -43,12 +51,22 @@ public class MainActivity extends AppCompatActivity implements IView {
 
 
     @Override
-    public void showList(List<RepositoryDTO> repositoryDTOs) {
-        mRepoListAdapter.setData(repositoryDTOs);
+    public void showList(List<RepositoryVO> repositoryVOs) {
+        mRepoListAdapter.setData(repositoryVOs);
     }
 
     @Override
     public void showError(String error) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
 
     }
 
@@ -61,4 +79,6 @@ public class MainActivity extends AppCompatActivity implements IView {
     public String getUserName() {
         return mUserName.getText().toString();
     }
+
+
 }
