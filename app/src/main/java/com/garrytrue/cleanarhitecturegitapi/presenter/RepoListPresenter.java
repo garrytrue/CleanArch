@@ -1,10 +1,17 @@
 package com.garrytrue.cleanarhitecturegitapi.presenter;
 
+import android.os.Bundle;
 import android.util.Log;
 
+import com.garrytrue.cleanarhitecturegitapi.mappers.RepositoryDTOtoVO;
 import com.garrytrue.cleanarhitecturegitapi.model.Model;
 import com.garrytrue.cleanarhitecturegitapi.model.ModelImpl;
+import com.garrytrue.cleanarhitecturegitapi.model.data.vo.RepositoryVO;
+import com.garrytrue.cleanarhitecturegitapi.view.IRepoView;
 import com.garrytrue.cleanarhitecturegitapi.view.IView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
@@ -12,25 +19,25 @@ import rx.subscriptions.Subscriptions;
 /**
  * Created by garrytrue on 25.06.16.
  */
-public class RepoListPresenter implements Presenter {
+public class RepoListPresenter extends BasePresenter {
     private static final String TAG = RepoListPresenter.class.getSimpleName();
     private final Model model = new ModelImpl();
-    private Subscription subscription = Subscriptions.empty();
-    private IView view;
+    private IRepoView view;
+    private static final String BUNDLE_REPO_LIST_KEY = "BUNDLE_REPO_LIST_KEY";
+    private List<RepositoryVO> repoList;
 
-    public RepoListPresenter(IView view) {
+    public RepoListPresenter(IRepoView view) {
         this.view = view;
     }
 
-    @Override
     public void onSearchClick() {
-        makeUnsubscribe();
         Log.d(TAG, "onSearchClick: ");
-        subscription = model.getRepoByUser(view.getUserName())
+        Subscription subscription = model.getRepoByUser(view.getUserName()).map(new RepositoryDTOtoVO())
                 .subscribe(repos -> {
                     Log.d(TAG, "onNext: " + repos);
-                    if (repos != null && !repos.isEmpty()) {
-                        view.showList(repos);
+                    repoList = repos;
+                    if (isRepoListNotEmpty()) {
+                        view.showList(repoList);
                     } else {
                         view.showEmptyList();
                     }
@@ -40,17 +47,31 @@ public class RepoListPresenter implements Presenter {
                 }, () -> {
                     Log.d(TAG, "onComplete: ");
                 });
+        addSubscription(subscription);
     }
 
 
     @Override
-    public void onStop() {
-        makeUnsubscribe();
+    protected IRepoView getView() {
+        return view;
     }
 
-    private void makeUnsubscribe() {
-        if (!subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
+    public void onCreate(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            repoList = savedInstanceState.getParcelableArrayList(BUNDLE_REPO_LIST_KEY);
+        }
+        if (isRepoListNotEmpty()) {
+            view.showList(repoList);
         }
     }
+
+    private boolean isRepoListNotEmpty() {
+        return (repoList != null && !repoList.isEmpty());
+    }
+    public void onSavedInstanceState(Bundle outState){
+        if(isRepoListNotEmpty()){
+            outState.putParcelableArrayList(BUNDLE_REPO_LIST_KEY, new ArrayList<>(repoList));
+        }
+    }
+
 }
