@@ -1,11 +1,13 @@
 package com.garrytrue.cleanarhitecturegitapi.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.garrytrue.cleanarhitecturegitapi.callbacks.IRepoClickListener;
 import com.garrytrue.cleanarhitecturegitapi.model.data.dto.RepositoryDTO;
 import com.garrytrue.cleanarhitecturegitapi.model.data.vo.RepositoryVO;
 
@@ -16,13 +18,14 @@ import java.util.List;
  */
 public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoViewHolder> implements RecyclerAdapter<RepositoryVO> {
     private List<RepositoryVO> repos;
+    private IRepoClickListener listener;
 
     @Override
     public RepoListAdapter.RepoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RepoViewHolder(
-                LayoutInflater
-                        .from(parent.getContext())
-                        .inflate(android.R.layout.simple_list_item_2, parent, false));
+        View item = LayoutInflater
+                .from(parent.getContext())
+                .inflate(android.R.layout.simple_list_item_2, parent, false);
+        return new RepoViewHolder(item);
     }
 
     @Override
@@ -42,12 +45,20 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
         notifyDataSetChanged();
     }
 
+    public void setRepoClickListener(IRepoClickListener listener) {
+        this.listener = listener;
+    }
+
     class RepoViewHolder extends RecyclerView.ViewHolder {
         private TextView title, subTitle;
 
         public RepoViewHolder(View itemView) {
             super(itemView);
             initView(itemView);
+            itemView.setOnClickListener(view -> {
+                if (listener != null)
+                    listener.onRepoClicked(getAdapterPosition());
+            });
         }
 
         private void initView(View itemView) {
