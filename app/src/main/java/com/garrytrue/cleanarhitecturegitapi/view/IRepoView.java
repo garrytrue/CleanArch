@@ -13,5 +13,8 @@ public interface IRepoView extends IView {
     void showEmptyList();
 
     String getUserName();
-    
+
+    void openRepoInfo(RepositoryVO repositoryVO);
+
+
 }

@@ -15,7 +15,7 @@ public class RepositoryDTOtoVO implements Func1<List<RepositoryDTO>, List<Reposi
     @Override
     public List<RepositoryVO> call(List<RepositoryDTO> repositoryDTOs) {
         return Observable.from(repositoryDTOs)
-                .map(repositoryDTO -> new RepositoryVO(repositoryDTO.getName(), repositoryDTO.getOwner().getLogin()))
+                .map(repositoryDTO -> new RepositoryVO(repositoryDTO.getName(), repositoryDTO.getOwner().getLogin(), repositoryDTO.getBranchesUrl()))
                 .toList()
                 .toBlocking()
                 .first();

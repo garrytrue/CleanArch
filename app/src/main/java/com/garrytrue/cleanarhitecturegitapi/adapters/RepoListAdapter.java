@@ -57,7 +57,7 @@ public class RepoListAdapter extends RecyclerView.Adapter<RepoListAdapter.RepoVi
             initView(itemView);
             itemView.setOnClickListener(view -> {
                 if (listener != null)
-                    listener.onRepoClicked(getAdapterPosition());
+                    listener.onRepoClicked(repos.get(getLayoutPosition()));
             });
         }
 

@@ -27,7 +27,9 @@ public class ModelImpl implements Model {
 
     @Override
     public Observable<List<BranchDTO>> getRepoBranches(String owner, String name) {
-        return null;
+        return apiInterface.getBranches(owner, name)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

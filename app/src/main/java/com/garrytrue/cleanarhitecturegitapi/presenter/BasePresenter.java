@@ -1,5 +1,9 @@
 package com.garrytrue.cleanarhitecturegitapi.presenter;
 
+import android.os.Bundle;
+
+import com.garrytrue.cleanarhitecturegitapi.model.Model;
+import com.garrytrue.cleanarhitecturegitapi.model.ModelImpl;
 import com.garrytrue.cleanarhitecturegitapi.view.IView;
 
 import rx.Subscription;
@@ -10,6 +14,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class BasePresenter implements Presenter {
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
+    protected final Model model = new ModelImpl();
 
     protected void addSubscription(Subscription subscription) {
         compositeSubscription.add(subscription);
@@ -29,5 +34,9 @@ public abstract class BasePresenter implements Presenter {
     protected void hideLoadingState() {
         getView().hideLoading();
     }
+
+    public abstract void onCreate(Bundle savedInstanceState);
+
+    public abstract void onSavedInstanceState(Bundle outState);
 
 }

@@ -9,10 +9,12 @@ import android.os.Parcelable;
 public class RepositoryVO implements Parcelable {
     private String repoName;
     private String ownerName;
+    private String branchesUrl;
 
-    public RepositoryVO(String repoName, String ownerName) {
+    public RepositoryVO(String repoName, String ownerName, String branchesUrl) {
         this.repoName = repoName;
         this.ownerName = ownerName;
+        this.branchesUrl = branchesUrl;
     }
 
     public String getRepoName() {
@@ -32,12 +34,14 @@ public class RepositoryVO implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.repoName);
         dest.writeString(this.ownerName);
+        dest.writeString(this.branchesUrl);
     }
 
 
     protected RepositoryVO(Parcel in) {
         this.repoName = in.readString();
         this.ownerName = in.readString();
+        this.branchesUrl = in.readString();
     }
 
     public static final Parcelable.Creator<RepositoryVO> CREATOR = new Parcelable.Creator<RepositoryVO>() {
@@ -51,4 +55,8 @@ public class RepositoryVO implements Parcelable {
             return new RepositoryVO[size];
         }
     };
+
+    public String getBranchesUrl() {
+        return branchesUrl;
+    }
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +50,9 @@ public class RepoListFragment extends Fragment implements IRepoView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter = new RepoListPresenter(this);
-        mPresenter.onCreate(savedInstanceState);
         initViews(view);
+        Log.d(TAG, "onViewCreated: ");
+        mPresenter.onCreate(savedInstanceState);
     }
 
     private void initViews(View view) {
@@ -73,9 +75,11 @@ public class RepoListFragment extends Fragment implements IRepoView {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onStop() {
+        mPresenter.onStop();
+        super.onStop();
     }
+
 
     @Override
     public void showList(List<RepositoryVO> repositoryVOs) {
@@ -90,6 +94,14 @@ public class RepoListFragment extends Fragment implements IRepoView {
     @Override
     public String getUserName() {
         return mUserName.getText().toString();
+    }
+
+    @Override
+    public void openRepoInfo(RepositoryVO repositoryVO) {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, RepoInfoFragment.newInstance(repositoryVO), RepoInfoFragment.TAG).addToBackStack(RepoInfoFragment.TAG)
+                .commit();
     }
 
     @Override

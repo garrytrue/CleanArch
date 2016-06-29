@@ -22,7 +22,6 @@ import rx.subscriptions.Subscriptions;
  */
 public class RepoListPresenter extends BasePresenter implements IRepoClickListener {
     private static final String TAG = RepoListPresenter.class.getSimpleName();
-    private final Model model = new ModelImpl();
     private IRepoView view;
     private static final String BUNDLE_REPO_LIST_KEY = "BUNDLE_REPO_LIST_KEY";
     private List<RepositoryVO> repoList;
@@ -80,7 +79,8 @@ public class RepoListPresenter extends BasePresenter implements IRepoClickListen
     }
 
     @Override
-    public void onRepoClicked(int index) {
-        Log.d(TAG, "onRepoClicked: " + index);
+    public void onRepoClicked(RepositoryVO repositoryVO) {
+        Log.d(TAG, "onRepoClicked: " + repositoryVO);
+        view.openRepoInfo(repositoryVO);
     }
 }
