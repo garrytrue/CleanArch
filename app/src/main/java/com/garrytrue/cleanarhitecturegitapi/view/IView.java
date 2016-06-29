@@ -1,6 +1,7 @@
 package com.garrytrue.cleanarhitecturegitapi.view;
 
 import com.garrytrue.cleanarhitecturegitapi.model.data.dto.RepositoryDTO;
+import com.garrytrue.cleanarhitecturegitapi.model.data.vo.RepositoryVO;
 
 import java.util.List;
 
@@ -8,8 +9,9 @@ import java.util.List;
  * Created by garrytrue on 25.06.16.
  */
 public interface IView {
-    void showList(List<RepositoryDTO> repositoryDTOs);
     void showError(String error);
-    void showEmptyList();
-    String getUserName();
+
+    void showLoading();
+
+    void hideLoading();
 }
