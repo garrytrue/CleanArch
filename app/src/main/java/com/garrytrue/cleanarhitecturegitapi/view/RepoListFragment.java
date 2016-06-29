@@ -14,19 +14,25 @@ import android.widget.ImageButton;
 
 import com.garrytrue.cleanarhitecturegitapi.R;
 import com.garrytrue.cleanarhitecturegitapi.adapters.RepoListAdapter;
+import com.garrytrue.cleanarhitecturegitapi.di.components.DaggerViewRepoListComponent;
+import com.garrytrue.cleanarhitecturegitapi.di.modules.ViewRepoListModule;
 import com.garrytrue.cleanarhitecturegitapi.model.data.vo.RepositoryVO;
 import com.garrytrue.cleanarhitecturegitapi.presenter.RepoListPresenter;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class RepoListFragment extends Fragment implements IRepoView {
     public static final String TAG = RepoListFragment.class.getSimpleName();
     private EditText mUserName;
     private ImageButton mSearch;
     private RecyclerView mRecyclerView;
-    private RepoListPresenter mPresenter;
     private RepoListAdapter mRepoListAdapter;
     private View mProgressBar;
+
+    @Inject
+    RepoListPresenter mPresenter;
 
 
     public static RepoListFragment newInstance() {
@@ -37,6 +43,9 @@ public class RepoListFragment extends Fragment implements IRepoView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DaggerViewRepoListComponent.builder()
+                .viewRepoListModule(new ViewRepoListModule(this))
+                .build().inject(this);
     }
 
     @Override
@@ -49,7 +58,7 @@ public class RepoListFragment extends Fragment implements IRepoView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter = new RepoListPresenter(this);
+//        mPresenter = new RepoListPresenter(this);
         initViews(view);
         Log.d(TAG, "onViewCreated: ");
         mPresenter.onCreate(savedInstanceState);

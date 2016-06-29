@@ -5,6 +5,8 @@ import com.garrytrue.cleanarhitecturegitapi.model.data.vo.BranchVO;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -12,6 +14,10 @@ import rx.functions.Func1;
  * Created by garrytrue on 25.06.16.
  */
 public class BranchesDTOtoVO implements Func1<List<BranchDTO>, List<BranchVO>> {
+    @Inject
+    public BranchesDTOtoVO() {
+    }
+
     @Override
     public List<BranchVO> call(List<BranchDTO> branchDTOs) {
         return Observable.from(branchDTOs).map(branchDTO -> new BranchVO(branchDTO.getName())).toList().toBlocking().first();

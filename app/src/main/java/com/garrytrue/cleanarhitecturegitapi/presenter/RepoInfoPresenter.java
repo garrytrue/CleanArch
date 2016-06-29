@@ -3,6 +3,7 @@ package com.garrytrue.cleanarhitecturegitapi.presenter;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.garrytrue.cleanarhitecturegitapi.di.CleanArchApp;
 import com.garrytrue.cleanarhitecturegitapi.mappers.BranchesDTOtoVO;
 import com.garrytrue.cleanarhitecturegitapi.model.data.vo.BranchVO;
 import com.garrytrue.cleanarhitecturegitapi.model.data.vo.RepositoryVO;
@@ -11,6 +12,8 @@ import com.garrytrue.cleanarhitecturegitapi.view.IView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import rx.Subscription;
 
@@ -23,10 +26,13 @@ public class RepoInfoPresenter extends BasePresenter {
     private IRepoInfoView view;
     private RepositoryVO repositoryVO;
     private List<BranchVO> branchList;
+    @Inject
+    BranchesDTOtoVO branchesMapper;
 
     public RepoInfoPresenter(IRepoInfoView view, RepositoryVO repositoryVO) {
         this.view = view;
         this.repositoryVO = repositoryVO;
+        CleanArchApp.getAppComponent().inject(this);
     }
 
     @Override
@@ -50,7 +56,7 @@ public class RepoInfoPresenter extends BasePresenter {
         Log.d(TAG, "loadData: " + repositoryVO);
         showLoadingState();
         Subscription subscription = model.getRepoBranches(repositoryVO.getOwnerName(), repositoryVO.getRepoName())
-                .map(new BranchesDTOtoVO()).subscribe(
+                .map(branchesMapper).subscribe(
                         branchVOs -> {
                             Log.d(TAG, "loadData: " + branchVOs);
                             branchList = branchVOs;

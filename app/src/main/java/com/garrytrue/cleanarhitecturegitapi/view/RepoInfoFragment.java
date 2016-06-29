@@ -14,11 +14,15 @@ import android.widget.ProgressBar;
 
 import com.garrytrue.cleanarhitecturegitapi.R;
 import com.garrytrue.cleanarhitecturegitapi.adapters.BranchesAdapter;
+import com.garrytrue.cleanarhitecturegitapi.di.components.DaggerViewBranchesListComponent;
+import com.garrytrue.cleanarhitecturegitapi.di.modules.ViewBranchesListModule;
 import com.garrytrue.cleanarhitecturegitapi.model.data.vo.BranchVO;
 import com.garrytrue.cleanarhitecturegitapi.model.data.vo.RepositoryVO;
 import com.garrytrue.cleanarhitecturegitapi.presenter.RepoInfoPresenter;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,9 +35,9 @@ public class RepoInfoFragment extends Fragment implements IRepoInfoView {
     private RepositoryVO mRepositoryVO;
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
-    private RepoInfoPresenter mPresenter;
     private BranchesAdapter mAdapter;
-
+    @Inject
+    RepoInfoPresenter mPresenter;
 
     /**
      * Use this factory method to create a new instance of
@@ -56,6 +60,11 @@ public class RepoInfoFragment extends Fragment implements IRepoInfoView {
         if (getArguments() != null) {
             mRepositoryVO = getArguments().getParcelable(CURRENT_REPO);
         }
+        DaggerViewBranchesListComponent.builder()
+                .viewBranchesListModule(new ViewBranchesListModule(this, mRepositoryVO))
+                .build()
+                .inject(this);
+
     }
 
     @Override
@@ -71,7 +80,6 @@ public class RepoInfoFragment extends Fragment implements IRepoInfoView {
         mAdapter = new BranchesAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
-        mPresenter = new RepoInfoPresenter(this, mRepositoryVO);
         mPresenter.onCreate(savedInstanceState);
 
     }
@@ -90,7 +98,7 @@ public class RepoInfoFragment extends Fragment implements IRepoInfoView {
 
     @Override
     public void showBranchesList(List<BranchVO> branchVOs) {
-mAdapter.setData(branchVOs);
+        mAdapter.setData(branchVOs);
     }
 
     @Override

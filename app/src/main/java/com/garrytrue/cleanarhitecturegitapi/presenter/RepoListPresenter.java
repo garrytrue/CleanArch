@@ -4,18 +4,18 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.garrytrue.cleanarhitecturegitapi.callbacks.IRepoClickListener;
+import com.garrytrue.cleanarhitecturegitapi.di.CleanArchApp;
+import com.garrytrue.cleanarhitecturegitapi.di.components.AppComponent;
 import com.garrytrue.cleanarhitecturegitapi.mappers.RepositoryDTOtoVO;
-import com.garrytrue.cleanarhitecturegitapi.model.Model;
-import com.garrytrue.cleanarhitecturegitapi.model.ModelImpl;
 import com.garrytrue.cleanarhitecturegitapi.model.data.vo.RepositoryVO;
 import com.garrytrue.cleanarhitecturegitapi.view.IRepoView;
-import com.garrytrue.cleanarhitecturegitapi.view.IView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Subscription;
-import rx.subscriptions.Subscriptions;
 
 /**
  * Created by garrytrue on 25.06.16.
@@ -25,16 +25,18 @@ public class RepoListPresenter extends BasePresenter implements IRepoClickListen
     private IRepoView view;
     private static final String BUNDLE_REPO_LIST_KEY = "BUNDLE_REPO_LIST_KEY";
     private List<RepositoryVO> repoList;
-
+    @Inject
+    RepositoryDTOtoVO repoMapper;
 
     public RepoListPresenter(IRepoView view) {
+        CleanArchApp.getAppComponent().inject(this);
         this.view = view;
     }
 
     public void onSearchClick() {
         Log.d(TAG, "onSearchClick: ");
         showLoadingState();
-        Subscription subscription = model.getRepoByUser(view.getUserName()).map(new RepositoryDTOtoVO())
+        Subscription subscription = model.getRepoByUser(view.getUserName()).map(repoMapper)
                 .subscribe(repos -> {
                     Log.d(TAG, "onNext: " + repos);
                     repoList = repos;
