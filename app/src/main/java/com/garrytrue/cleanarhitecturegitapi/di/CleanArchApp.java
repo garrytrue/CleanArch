@@ -18,6 +18,9 @@ public class CleanArchApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = DaggerAppComponent.builder().build();
+        appComponent = buildAppComponent();
+    }
+    protected AppComponent buildAppComponent(){
+        return DaggerAppComponent.builder().build();
     }
 }

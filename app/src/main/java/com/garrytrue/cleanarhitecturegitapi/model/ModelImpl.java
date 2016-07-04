@@ -42,9 +42,4 @@ public class ModelImpl implements Model {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
-    @Override
-    public Observable<List<ContributorDTO>> getRepoContributors(String owner, String name) {
-        return null;
-    }
 }

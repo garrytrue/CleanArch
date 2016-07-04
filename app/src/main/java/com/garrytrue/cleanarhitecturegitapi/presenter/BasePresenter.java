@@ -45,6 +45,8 @@ public abstract class BasePresenter implements Presenter {
         getView().hideLoading();
     }
 
+    protected void showError(Throwable error){getView().showError(error.getMessage());}
+
     public abstract void onCreate(Bundle savedInstanceState);
 
     public abstract void onSavedInstanceState(Bundle outState);

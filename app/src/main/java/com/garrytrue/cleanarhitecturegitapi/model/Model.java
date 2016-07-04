@@ -15,6 +15,4 @@ public interface Model {
     Observable<List<RepositoryDTO>> getRepoByUser(String name);
 
     Observable<List<BranchDTO>> getRepoBranches(String owner, String name);
-
-    Observable<List<ContributorDTO>> getRepoContributors(String owner, String name);
 }

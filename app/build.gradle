@@ -26,28 +26,48 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+ext{
+    SUPPORT_LIBS = "24.0.0"
+    RETROFIT_VER = "2.0.0"
+    MOCK_WEB_SERVER_VER = "3.2.0"
+}
 
 dependencies {
-    def libversion = '24.0.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson
-    compile group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.1.0'
-// https://mvnrepository.com/artifact/com.squareup.retrofit2/adapter-rxjava
-    compile group: 'com.squareup.retrofit2', name: 'adapter-rxjava', version: '2.1.0'
-
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile "com.android.support:appcompat-v7:${SUPPORT_LIBS}"
+    compile "com.android.support:design:${SUPPORT_LIBS}"
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.android.support:support-v4:24.0.0'
-// Dagger 2
-    compile 'com.google.dagger:dagger:2.2'
-    apt 'com.google.dagger:dagger-compiler:2.2'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compile "com.squareup.retrofit2:retrofit:${RETROFIT_VER}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${RETROFIT_VER}"
+    compile "com.squareup.retrofit2:converter-gson:${RETROFIT_VER}"
+    compile "com.squareup.okhttp3:logging-interceptor:${MOCK_WEB_SERVER_VER}"
+    compile 'com.google.dagger:dagger:2.0'
+    apt 'com.google.dagger:dagger-compiler:2.0.2'
 
+    testApt 'com.google.dagger:dagger-compiler:2.0.2'
     testCompile 'org.robolectric:robolectric:3.0'
+    testCompile "com.squareup.okhttp3:mockwebserver:${MOCK_WEB_SERVER_VER}"
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+
+    androidTestApt 'com.google.dagger:dagger-compiler:2.0.2'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2') {
+        // Necessary to avoid version conflicts
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile 'com.google.truth:truth:0.25'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.3'
+    androidTestCompile "com.android.support:support-annotations:${SUPPORT_LIBS}"
+    androidTestCompile "com.squareup.okhttp3:mockwebserver:${MOCK_WEB_SERVER_VER}"
+    androidTestCompile 'org.mockito:mockito-core:1.10.19'
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 }
 
 jacoco {
@@ -71,9 +91,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
                        '**/*$ViewBinder*.*',   //DI
                        '**/*_MembersInjector*.*',  //DI
                        '**/*_Factory*.*',  //DI
-                       '**/testrx/model/dto/*.*', //dto model
-                       '**/testrx/presenter/vo/*.*', //vo model
-                       '**/testrx/other/**',
+                       '**/model/data/dto/*.*', //dto model
+                       '**/model/data/vo/*.*', //vo model
+                       '**/di/*', //dagger2 components and modules
                        '**/BuildConfig.*',
                        '**/Manifest*.*',
                        '**/Lambda$*.class',

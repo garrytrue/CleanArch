@@ -16,9 +16,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiModule {
     private static final boolean ENABLE_AUTH = false;
     private static final String AUTH_64 = "***"; //your code here
-    private static final String BASE_URL = "https://api.github.com/";
+    public static final String BASE_URL = "https://api.github.com/";
 
-    public static ApiInterface getApiInterface() {
+    public static ApiInterface getApiInterface(String baseUrl) {
         OkHttpClient okHttpClient = new OkHttpClient();
         if (ENABLE_AUTH) {
             okHttpClient.interceptors().add(new Interceptor() {
@@ -26,7 +26,7 @@ public class ApiModule {
                 public Response intercept(Chain chain) throws IOException {
                     Request original = chain.request();
                     Request request = original.newBuilder()
-                            .header("Authorization", AUTH_64)
+                                .header("Authorization", AUTH_64)
                             .method(original.method(), original.body())
                             .build();
                     return chain.proceed(request);
@@ -34,7 +34,7 @@ public class ApiModule {
             });
         }
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient);

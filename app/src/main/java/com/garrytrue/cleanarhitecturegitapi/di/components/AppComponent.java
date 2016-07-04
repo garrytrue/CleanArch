@@ -6,7 +6,6 @@ import com.garrytrue.cleanarhitecturegitapi.model.ModelImpl;
 import com.garrytrue.cleanarhitecturegitapi.presenter.BasePresenter;
 import com.garrytrue.cleanarhitecturegitapi.presenter.RepoInfoPresenter;
 import com.garrytrue.cleanarhitecturegitapi.presenter.RepoListPresenter;
-import com.garrytrue.cleanarhitecturegitapi.view.RepoInfoFragment;
 
 import javax.inject.Singleton;
 
